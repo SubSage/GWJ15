@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://testtiles.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
 [ext_resource path="res://assets/tiles/SAMPLE.png" type="Texture" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
 
 [node name="island" type="TileMap"]
 mode = 1
@@ -13,6 +14,7 @@ tile_data = PoolIntArray( -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0
 script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 2.27216, -2.27203 )
 current = true
 
 [node name="island" type="Node2D" parent="."]
@@ -27,6 +29,12 @@ autostart = true
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
 texture = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( -799.77, 47.7136 )
+texture = ExtResource( 4 )
 
 [connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]
 [connection signal="timeout" from="islandstart" to="." method="_on_islandstart_timeout"]

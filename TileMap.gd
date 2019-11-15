@@ -4,11 +4,10 @@ onready var map = preload("res://map2.tscn")
 var temptiles = self.get_used_cells_by_id(1)
 var starttiles = self.get_used_cells_by_id(2)
 var Tree = preload("res://Tree.tscn")
+var Dew = preload("res://Dew.tscn")
+var Bluebell = preload("res://Tree.tscn")
 func _ready():
-	Engine.time_scale = .1 # .5 = game ticks at half speed, 2 = game ticks and double speed
-	$Tween.interpolate_property($Sprite2, "position", $Sprite2.position, $Sprite2.position + Vector2(1000,0), 10,
-			Tween.TRANS_LINEAR,Tween.EASE_IN)
-	$Tween.start()
+	Engine.time_scale = 1 # .5 = game ticks at half speed, 2 = game ticks and double speed
 	clear()
 #	load map here instead of above; map selection here?
 	var map2 = map.instance()
@@ -47,13 +46,14 @@ func _on_islandstart_timeout():
 
 
 func _input(event):
-	# Mouse in viewport coordinates
-	if event is InputEventMouseButton:
+	if event.is_action_pressed("mouse_left_click"):
+		var clickposition = map_to_world(world_to_map(get_local_mouse_position()))
+		
 		var t = Tree.instance()
-		t.position = map_to_world(world_to_map(get_local_mouse_position()))
-		add_child(t)
+		t.position = clickposition
+		$YSort.add_child(t)
 #		set_cellv(world_to_map(get_local_mouse_position()), 2)
-#		print("Mouse Click/Unclick at: ", event.position)
-		pass
 	elif event is InputEventMouseMotion:
 		$Sprite.position =  map_to_world(world_to_map(get_local_mouse_position()))
+
+#create signal/function from where children plants call to add grass
